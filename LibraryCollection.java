@@ -2,6 +2,7 @@ package school;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 
 class LibraryCollection {
 	
@@ -14,9 +15,22 @@ class LibraryCollection {
 	}
 	
 	public void addBook(Book book) {
-		//TODO: Add books to genreMap
-		String genre = book.getGenre();
-		genreMap.put(book);
+		
+		// Get genres book list.
+		List<Book> booksInGenre = genreMap.get(book.getGenre());
+		
+		if (booksInGenre == null) {
+			
+			// Make new genre, if genre doesn't exist.
+			booksInGenre = new ArrayList<>();
+			
+			// Add new list to map.
+			genreMap.put(book.getGenre(), booksInGenre);
+		}
+		
+		// Add book to list
+		booksInGenre.add(book);
+		
 	}
 	
 	public Iterator<Book> getGenreIterator(String genre) {
